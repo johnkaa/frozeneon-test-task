@@ -1,0 +1,17 @@
+.packages-modal {
+  &__title {
+    font-size: 36px;
+  }
+
+  &__list {
+    &-title {
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    &-items {
+      max-height: 96px;
+      overflow-y: auto;
+    }
+  }
+}

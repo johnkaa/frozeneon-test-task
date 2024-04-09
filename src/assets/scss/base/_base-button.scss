@@ -1,0 +1,24 @@
+@import "@/assets/scss/variables/colors";
+
+.base-button {
+  border: none;
+  background-color: $primary;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color .3s;
+
+  &:hover {
+    background-color: darken($primary, 5%);
+  }
+
+  &:disabled {
+    opacity: .7;
+    pointer-events: none;
+  }
+
+  &_rounded {
+    border-radius: 50%;
+  }
+}

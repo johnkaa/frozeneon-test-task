@@ -1,0 +1,128 @@
+@import "@/assets/scss/variables/colors";
+@import "@/assets/scss/variables/media-breakpoints";
+
+.base-table {
+  border-radius: 8px;
+
+  &__wrapper {
+    overflow-x: auto;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 16px 2px rgba(68, 68, 68, 0.02);
+  }
+
+  &__container {
+    min-width: 100%;
+    width: fit-content;
+    border-spacing: 0;
+  }
+
+  &__header-row, &__body-row {
+    position: relative;
+    &::after {
+      content: '';
+      background-color: #f6f6f6;
+      height: 1px;
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 0;
+    }
+  }
+
+  &__body-row:last-child {
+    &::after {
+      content: unset;
+    }
+  }
+
+  &__header {
+    color: $primary;
+    font-size: 18px;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 16px;
+    }
+
+    &-row {
+      padding-left: 20px;
+    }
+
+    &-cell {
+      text-align: left;
+      padding: 16px 10px 12px 0;
+      font-weight: 400;
+    }
+
+    &-row > &-cell:first-child {
+      padding-left: 20px;
+    }
+
+    &-row > &-cell:last-child {
+      padding-right: 20px;
+    }
+  }
+
+  &__body {
+    font-size: 16px;
+    font-weight: 400;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 12px;
+    }
+
+    &-row {
+      vertical-align: inherit;
+      cursor: pointer;
+      transition:
+      background .3s ease,
+      transform .3s ease;
+
+      &:hover {
+        background-color: rgba($primary, 0.1);
+        transform: translate3d(0, -1px, 0);
+      }
+    }
+
+    &-cell {
+      padding: 10px 15px 10px 0;
+
+      .column {
+        &_goal {
+          white-space: nowrap;
+        }
+      }
+    }
+
+    &-row > &-cell:first-child {
+      padding-left: 20px;
+    }
+  }
+
+  &_hover {
+    .base-table {
+      &__body {
+        &-row {
+          &:not(&-selected):hover {
+            background: #FBFBFB;
+          }
+        }
+      }
+    }
+  }
+
+  &_small-row {
+    .base-table {
+      &__body {
+        &-cell {
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+      }
+    }
+  }
+
+  &__empty {
+    color: #e63b3b;
+    text-align: center;
+  }
+}

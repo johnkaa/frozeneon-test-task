@@ -1,0 +1,9 @@
+@import "@/assets/scss/variables/colors";
+
+.base-input {
+  padding: 4px;
+  border: 1px solid $primary;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 200px;
+}
