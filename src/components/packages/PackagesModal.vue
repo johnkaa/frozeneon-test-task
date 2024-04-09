@@ -4,6 +4,7 @@ import { useVModel } from '@vueuse/core'
 import BaseModal from '@/components/base/BaseModal.vue'
 import type IPackage from '@/pkg/interfaces/package'
 import getPackageType from '@/pkg/plugins/get-package-type'
+import BaseLoader from '@/components/base/BaseLoader.vue'
 
 type TagKeyType = 'alpha' | 'beta' | 'latest' | 'lts' | 'next'
 
@@ -30,33 +31,37 @@ const tagsKeys = computed<TagKeyType[]>(() => {
 
 <template>
   <BaseModal v-model:modal-active="modalActive">
-    <h2 :class="$style['packages-modal__title']">{{ props.detailedData?.name }}</h2>
-    <div class="packages-modal__type" v-if="props.detailedData">
-      <span class="packages-modal__type-title">Type: </span>
-      <span class="packages-modal__type-text">{{ getPackageType(props.detailedData) }}</span>
-    </div>
+    <BaseLoader v-if="!props.detailedData" />
 
-    <div :class="$style['packages-modal__list']" v-if="tagsKeys.length">
-      <div :class="$style['packages-modal__list-title']">Tags:</div>
-      <div :class="$style['packages-modal__list-items']">
-        <div v-for="tag in tagsKeys" :key="tag" :class="$style['packages-modal__item']">
-          {{ props.detailedData?.tags?.[tag] }}
+    <template v-else>
+      <h2 :class="$style['packages-modal__title']">{{ props.detailedData.name }}</h2>
+      <div>
+        <span>Type: </span>
+        <span>{{ getPackageType(props.detailedData) }}</span>
+      </div>
+
+      <div :class="$style['packages-modal__list']" v-if="tagsKeys.length">
+        <div :class="$style['packages-modal__list-title']">Tags:</div>
+        <div :class="$style['packages-modal__list-items']">
+          <div v-for="tag in tagsKeys" :key="tag" :class="$style['packages-modal__item']">
+            {{ props.detailedData.tags?.[tag] }}
+          </div>
         </div>
       </div>
-    </div>
 
-    <div :class="$style['packages-modal__list']" v-if="props.detailedData?.versions?.length">
-      <div :class="$style['packages-modal__list-title']">Versions:</div>
-      <div :class="$style['packages-modal__list-items']">
-        <div
-          v-for="version in props.detailedData?.versions"
-          :key="version.version"
-          :class="$style['packages-modal__item']"
-        >
-          {{ version.version }}
+      <div :class="$style['packages-modal__list']" v-if="props.detailedData.versions?.length">
+        <div :class="$style['packages-modal__list-title']">Versions:</div>
+        <div :class="$style['packages-modal__list-items']">
+          <div
+            v-for="version in props.detailedData.versions"
+            :key="version.version"
+            :class="$style['packages-modal__item']"
+          >
+            {{ version.version }}
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </BaseModal>
 </template>
 

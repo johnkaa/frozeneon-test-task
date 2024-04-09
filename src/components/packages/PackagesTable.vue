@@ -33,6 +33,7 @@ onMounted(() => {
 })
 
 async function toggleModal(item: IPackage) {
+  detailedPackageData.value = null
   isShowPackageModal.value = true
   if (item.type === 'gh') {
     detailedPackageData.value = await packagesApi.getGitPackage(item.name)
