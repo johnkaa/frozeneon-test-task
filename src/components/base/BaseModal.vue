@@ -15,9 +15,11 @@ const modalActive = useVModel(props, 'modalActive', emit)
 
 const modalInner = ref()
 
-function closeModal(event: MouseEvent) {
-  const target = event.target as Element
-  if (target.closest(`.${modalInner.value.classList[0]}`)) return
+function closeModal(event: MouseEvent | null) {
+  if (event) {
+    const target = event.target as Element
+    if (target.closest(`.${modalInner.value.classList[0]}`)) return
+  }
 
   modalActive.value = false
 }
@@ -28,7 +30,7 @@ function closeModal(event: MouseEvent) {
     <div v-show="props.modalActive" :class="$style['base-modal']" @mouseup="closeModal">
       <transition name="modal-animation-inner">
         <div v-show="props.modalActive" :class="$style['base-modal__inner']" ref="modalInner">
-          <BaseButton :class="$style['base-modal__close']" rounded @click="closeModal">
+          <BaseButton :class="$style['base-modal__close']" rounded @click="closeModal(null)">
             X
           </BaseButton>
 
