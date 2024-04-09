@@ -1,12 +1,23 @@
+@import "@/assets/scss/variables/media-breakpoints";
+
 .packages-modal {
   &__title {
     font-size: 36px;
+    font-weight: 700;
+    word-break: break-all;
+    @include media-breakpoint-down(xs) {
+      font-size: 24px;
+    }
   }
 
   &__list {
     &-title {
       font-weight: 600;
       font-size: 20px;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 18px;
+      }
     }
 
     &-items {
