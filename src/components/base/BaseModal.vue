@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
+import { useScrollLock } from '@/pkg/plugins/scroll-lock'
 import BaseButton from '@/components/base/BaseButton.vue'
 interface IProps {
   modalActive: boolean
@@ -10,6 +11,8 @@ const props = defineProps<IProps>()
 const emit = defineEmits<{
   (e: 'update:modalActive', value: string): void
 }>()
+
+const { lockScroll, unlockScroll } = useScrollLock()
 
 const modalActive = useVModel(props, 'modalActive', emit)
 
@@ -23,6 +26,14 @@ function closeModal(event: MouseEvent | null) {
 
   modalActive.value = false
 }
+
+watch(modalActive, (value) => {
+  if (value) {
+    lockScroll()
+  } else {
+    unlockScroll()
+  }
+})
 </script>
 
 <template>
