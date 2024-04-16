@@ -28,6 +28,13 @@ watch(currentPage, (page) => {
   packagesStore.getPackagesOnPage(page)
 })
 
+watch(
+  () => packagesStore.store.searchedPackages,
+  () => {
+    currentPage.value = 1
+  }
+)
+
 onMounted(() => {
   packagesStore.getAllPackages()
 })
